@@ -1,0 +1,7 @@
+Model,Dim Laten,Train Time/Epoch (s),Latency/Batch 64 (ms),Test MSE,Test PSNR (dB),Test SSIM,FID Score,Kestabilan
+Vanilla Autoencoder,64,3.42,0.16,0.0080,22.03,0.7944,N/A (Latent Voids),Stabil / Konvergen
+Sparse Autoencoder,256 (Sparse),3.86,0.17,0.0049,24.28,0.8651,N/A (Latent Voids),Stabil / Konvergen
+Variational Autoencoder (VAE),64,3.64,0.15,0.0159,18.62,0.6757,115.92,Stabil / Konvergen
+Vanilla GAN (MLP),100,5.29,0.24,N/A,N/A,N/A,186.68,Rentan Osilasi / Mode Collapse
+DCGAN,100,118.03,0.75,N/A,N/A,N/A,59.79,Cukup Stabil (Sensitif Arsitektur)
+DDPM,28x28,166.46,14108.64,N/A,N/A,N/A,91.37,Sangat Stabil

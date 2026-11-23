@@ -20,7 +20,11 @@ def set_seed(seed=42):
     torch.backends.cudnn.benchmark = False
 
 def get_device():
-    return torch.device("cuda" if torch.cuda.is_available() else "cpu")
+    if torch.cuda.is_available():
+        return torch.device("cuda")
+    if torch.backends.mps.is_available():
+        return torch.device("mps")
+    return torch.device("cpu")
 
 def get_dataloaders(batch_size=128, seed=42, data_dir="./data"):
     transform = transforms.Compose([transforms.ToTensor()])
@@ -78,12 +82,13 @@ class InceptionFeatureExtractor(nn.Module):
         return self.model(x).cpu().numpy()
 
 def calculate_fid(real_images, fake_images, device, batch_size=128):
-    extractor = InceptionFeatureExtractor(device)
+    fid_device = torch.device("cpu")
+    extractor = InceptionFeatureExtractor(fid_device)
 
     def get_activations(imgs):
         acts = []
         for i in range(0, len(imgs), batch_size):
-            batch = imgs[i:i+batch_size].to(device)
+            batch = imgs[i:i+batch_size].to(fid_device)
             acts.append(extractor(batch))
         return np.concatenate(acts, axis=0)
 
