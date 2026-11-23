@@ -1,8 +1,8 @@
-cat << 'EOF' > src/utils.py
+
 import time
 import random
 import numpy as np
-from pexpect import EOF
+
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
@@ -114,4 +114,3 @@ def measure_latency_ms(sample_fn, device, repeats=20):
         t1 = time.perf_counter()
         times.append((t1 - t0) * 1000.0)
     return float(np.mean(times))
-EOF
